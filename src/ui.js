@@ -322,6 +322,8 @@
       body = `<h2>${p.n}</h2><p class="flavor">${p.d}</p><div class="row-btns"><button class="btn" data-act="potion-drop" data-slot="${m.slot}">丢弃</button>${canUse ? `<button class="btn primary" data-act="potion-use" data-slot="${m.slot}">使用</button>` : ''}</div>`;
     } else if (m.t === 'menu') {
       body = `<h2>菜单</h2><div class="ev-choices"><button class="btn big" data-act="mute"><b>音效：${ui.muted ? '关' : '开'}</b></button><button class="btn big" data-act="help"><b>玩法说明</b></button><button class="btn big" data-act="save-quit"><b>存档并返回主菜单</b><small>仅在地图上可存档</small></button><button class="btn big danger" data-act="abandon"><b>放弃此世</b><small>视为陨落，结算道果</small></button></div>`;
+    } else if (m.t === 'abandon') {
+      body = `<h2>放弃此世？</h2><p class="flavor">本世修行将就此终结，已得的道果照常结算。</p><div class="row-btns"><button class="btn" data-act="modal-close">继续修行</button><button class="btn danger" data-act="abandon-yes">确认放弃</button></div>`;
     } else if (m.t === 'help') {
       body = helpHtml();
     }
@@ -536,7 +538,8 @@
       if (b.phase === 'over') finishBattleUI();
     },
     'save-quit'() { if (run.phase === 'map') XX.saveRun(run); ui.modal = null; ui.screen = 'title'; render(); },
-    abandon() { if (!G.confirm || G.confirm('确定放弃此世修行吗？')) { run.killedBy = ''; run.battle = null; run.lose(); ui.modal = null; render(); } },
+    abandon() { ui.modal = { t: 'abandon' }; render(); },
+    'abandon-yes'() { run.killedBy = ''; run.battle = null; run.lose(); ui.modal = null; ui.sel = ui.potSel = null; render(); },
     'rw-card'(el) { run.rewardPickCard(+el.dataset.i); sfx('buy'); render(); },
     'rw-skip'() { run.rewardSkipCards(); render(); },
     'rw-potion'() { run.rewardTakePotion(); sfx('buy'); render(); },

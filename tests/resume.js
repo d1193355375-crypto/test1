@@ -39,7 +39,15 @@ const { chromium } = require('playwright');
   if (s3 !== s1) fail('战斗中刷新后应回到进入节点之前的存档');
   console.log('✓ 战斗/节点中途刷新回到进入前的存档');
   // 陨落后存档被清除
-  await page.evaluate(() => { const r = XX.ui.run; r.killedBy = ''; r.lose(); XX.ui.render(); });
+  await page.dispatchEvent('[data-act="menu"]', 'click');
+  await page.dispatchEvent('[data-act="abandon"]', 'click');
+  if (!(await page.$('[data-act="abandon-yes"]'))) fail('放弃此世应弹出页内确认框');
+  await page.dispatchEvent('[data-act="modal-close"]', 'click');
+  if ((await page.evaluate(() => XX.ui.run.phase)) === 'over') fail('取消确认后不应结束本世');
+  await page.dispatchEvent('[data-act="menu"]', 'click');
+  await page.dispatchEvent('[data-act="abandon"]', 'click');
+  await page.dispatchEvent('[data-act="abandon-yes"]', 'click');
+  if ((await page.evaluate(() => XX.ui.run.phase)) !== 'over') fail('确认放弃后应进入结算');
   await page.reload();
   if (await page.$('[data-act="continue"]')) fail('陨落后不应再有可继续的存档');
   console.log('✓ 陨落后存档被清除，道果已结算');

@@ -3,12 +3,14 @@
   --bg: #0b0e14; --panel: rgba(20, 24, 33, .9); --line: rgba(216, 180, 90, .3);
   --gold: #d8b45a; --gold2: #f0d78c; --red: #cf5443; --jade: #5db596; --paper: #eadfc6; --dim: #8b8f99;
   --tint: #1e2a2f; --cw: 128px; --ch: 186px;
+  color-scheme: dark;
   font-family: 'STKaiti', 'KaiTi', 'Kaiti SC', 'AR PL UKai CN', 'Songti SC', 'Noto Serif CJK SC', 'Source Han Serif SC', 'WenQuanYi Zen Hei', 'Microsoft YaHei', serif;
 }
 body[data-realm="0"] { --tint: #24463a; } body[data-realm="1"] { --tint: #47283f; } body[data-realm="2"] { --tint: #1f4266; }
 body[data-realm="3"] { --tint: #562626; } body[data-realm="4"] { --tint: #4a4520; }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--paper); }
+body { font-size: 16px; }
 body {
   background:
     radial-gradient(900px 520px at 50% -8%, color-mix(in srgb, var(--tint) 85%, #000), transparent 70%),
@@ -17,7 +19,7 @@ body {
   transition: background .6s;
 }
 body::after { content: ''; position: fixed; inset: 0; pointer-events: none; box-shadow: inset 0 0 160px rgba(0, 0, 0, .6); z-index: 1; }
-#app { height: 100dvh; display: flex; flex-direction: column; position: relative; }
+#app { height: 100%; display: flex; flex-direction: column; position: relative; }
 button { font-family: inherit; color: inherit; }
 kbd { background: #2a2f3b; border: 1px solid #4a5060; border-radius: 4px; padding: 0 5px; font-size: .85em; }
 small { color: var(--dim); }

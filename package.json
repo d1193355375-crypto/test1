@@ -1,0 +1,15 @@
+{
+  "name": "wendao-changsheng",
+  "version": "1.0.0",
+  "private": true,
+  "description": "问道长生 —— 修仙题材的卡牌构筑肉鸽游戏（纯前端，零依赖）",
+  "scripts": {
+    "build": "node tools/build.js",
+    "audit": "node tests/audit.js",
+    "sim": "node tests/sim.js",
+    "test": "node tests/audit.js && node tests/sim.js 60",
+    "e2e": "node tests/e2e.js",
+    "shots": "node tests/shots.js"
+  },
+  "license": "MIT"
+}
